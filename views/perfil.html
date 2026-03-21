@@ -1,33 +1,33 @@
 <!-- Profile View -->
 <div class="page active">
-    <!-- Profile Header -->
-    <div class="flex flex-col items-center mb-8 pt-4">
-        <div class="w-24 h-24 rounded-full bg-ios-green-grad flex items-center justify-center text-4xl shadow-lg mb-4 border-4 border-ios-bg2">
-            👤
-        </div>
-        <h2 class="text-2xl font-black italic tracking-tight">ALEX VOLKOV</h2>
-        <p class="text-ios-label2 text-sm font-medium">alex.volkov@performance.com</p>
+    <!-- Profile Header (Editable) -->
+    <div class="flex flex-col items-center mb-8 pt-4 relative">
+        <label for="avatarUpload" class="relative group cursor-pointer w-24 h-24 rounded-full bg-ios-bg3 flex items-center justify-center text-4xl shadow-lg mb-4 border-4 border-ios-bg2 overflow-hidden">
+            <img id="userAvatar" src="" alt="Avatar" class="w-full h-full object-cover hidden">
+            <span id="userAvatarEmoji" class="absolute">👤</span>
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <span class="material-symbols-outlined text-white text-3xl">photo_camera</span>
+            </div>
+        </label>
+        <input type="file" id="avatarUpload" accept="image/*" class="hidden" onchange="window.handleAvatarUpload(event)">
+        
+        <input type="text" id="userName" class="text-2xl font-black italic tracking-tight text-center bg-transparent border-b border-transparent hover:border-ios-sep focus:border-ios-green focus:ring-0 w-3/4 max-w-sm transition-colors outline-none pb-1" value="Tu Nombre" placeholder="Introduce tu nombre" onblur="window.saveProfile()">
+        <input type="email" id="userEmail" class="text-ios-label2 text-sm font-medium text-center bg-transparent border-b border-transparent hover:border-ios-sep focus:border-ios-green focus:ring-0 w-3/4 max-w-sm transition-colors outline-none pb-1 mt-1" value="tu.email@ejemplo.com" placeholder="Correo electrónico" onblur="window.saveProfile()">
     </div>
 
-    <!-- Progress Photos & Measurements (Article Feature #12) -->
-    <div class="sec-header mt-2">Progreso Visual</div>
-    <div class="flex gap-3 overflow-x-auto pb-4 noscroll mb-4">
-        <button class="w-28 h-36 bg-ios-bg2 rounded-xl flex-shrink-0 flex items-center justify-center border-2 border-dashed border-ios-sep text-ios-label3 flex-col gap-2 hover:bg-ios-bg3 transition">
+    <!-- Progress Photos & Measurements (User editable) -->
+    <div class="sec-header mt-2 flex justify-between items-center">
+        <span>Progreso Visual</span>
+        <button onclick="document.getElementById('progressUpload').click()" class="text-ios-green text-xs font-bold uppercase tracking-widest px-2">Añadir</button>
+    </div>
+    <input type="file" id="progressUpload" accept="image/*" class="hidden" onchange="window.handleProgressUpload(event)">
+    
+    <div id="progressGallery" class="flex gap-3 overflow-x-auto pb-4 noscroll mb-4">
+        <!-- Gallery populated by JS -->
+        <button onclick="document.getElementById('progressUpload').click()" class="w-28 h-36 bg-ios-bg2 rounded-xl flex-shrink-0 flex items-center justify-center border-2 border-dashed border-ios-sep text-ios-label3 flex-col gap-2 hover:bg-ios-bg3 transition">
             <span class="material-symbols-outlined text-3xl">add_a_photo</span>
             <span class="text-[0.65rem] font-bold">Nueva Foto</span>
         </button>
-        <div class="w-28 h-36 bg-ios-bg3 rounded-xl flex-shrink-0 overflow-hidden relative border border-ios-sep shadow-sm">
-            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=200&h=300&fit=crop" class="w-full h-full object-cover opacity-80" alt="Mar 2026">
-            <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-1.5 text-center backdrop-blur-sm">
-                <span class="text-[0.65rem] font-bold">15 Mar 2026</span>
-            </div>
-        </div>
-        <div class="w-28 h-36 bg-ios-bg3 rounded-xl flex-shrink-0 overflow-hidden relative border border-ios-sep shadow-sm">
-            <img src="https://images.unsplash.com/photo-1549476464-37392f717541?w=200&h=300&fit=crop" class="w-full h-full object-cover opacity-60 grayscale-[30%]" alt="Feb 2026">
-            <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-1.5 text-center backdrop-blur-sm">
-                <span class="text-[0.65rem] font-bold">1 Feb 2026</span>
-            </div>
-        </div>
     </div>
 
     <div class="sec-header">Métricas Corporales</div>

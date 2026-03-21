@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Specific View Init
             if (viewName === 'progreso') setTimeout(initChart, 100);
+            if (viewName === 'perfil') setTimeout(initProfile, 100);
             
         } catch (error) {
             console.error("Error al cargar la vista:", error);
@@ -153,6 +154,109 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             }
+        });
+    }
+
+    /**
+     * Profile Dynamic Handlers
+     */
+    function initProfile() {
+        const profile = JSON.parse(localStorage.getItem('koProfile')) || {
+            name: '',
+            email: '',
+            avatar: '',
+            photos: []
+        };
+        
+        const nameInput = document.getElementById('userName');
+        const emailInput = document.getElementById('userEmail');
+        
+        if (nameInput && profile.name) nameInput.value = profile.name;
+        if (emailInput && profile.email) emailInput.value = profile.email;
+        
+        if (profile.avatar) {
+            const avatarImg = document.getElementById('userAvatar');
+            const emoji = document.getElementById('userAvatarEmoji');
+            if (avatarImg) {
+                avatarImg.src = profile.avatar;
+                avatarImg.classList.remove('hidden');
+                emoji.classList.add('hidden');
+            }
+        }
+
+        renderProgressPhotos(profile.photos);
+    }
+
+    window.saveProfile = () => {
+        const name = document.getElementById('userName').value;
+        const email = document.getElementById('userEmail').value;
+        const profile = JSON.parse(localStorage.getItem('koProfile')) || {};
+        profile.name = name;
+        profile.email = email;
+        localStorage.setItem('koProfile', JSON.stringify(profile));
+        showToast("Perfil guardado");
+    };
+
+    window.handleAvatarUpload = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const base64 = event.target.result;
+            const avatarImg = document.getElementById('userAvatar');
+            const emoji = document.getElementById('userAvatarEmoji');
+            
+            avatarImg.src = base64;
+            avatarImg.classList.remove('hidden');
+            emoji.classList.add('hidden');
+            
+            const profile = JSON.parse(localStorage.getItem('koProfile')) || {};
+            profile.avatar = base64;
+            localStorage.setItem('koProfile', JSON.stringify(profile));
+            showToast("Avatar actualizado");
+        };
+        reader.readAsDataURL(file);
+    };
+
+    window.handleProgressUpload = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const base64 = event.target.result;
+            const profile = JSON.parse(localStorage.getItem('koProfile')) || { photos: [] };
+            if (!profile.photos) profile.photos = [];
+            
+            const dateStr = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+            profile.photos.unshift({ src: base64, date: dateStr });
+            
+            // Limit to last 10 photos to avoid localStorage quota issues
+            if (profile.photos.length > 10) profile.photos.pop();
+            
+            localStorage.setItem('koProfile', JSON.stringify(profile));
+            renderProgressPhotos(profile.photos);
+            showToast("Progreso guardado");
+        };
+        reader.readAsDataURL(file);
+    };
+
+    function renderProgressPhotos(photos) {
+        const gallery = document.getElementById('progressGallery');
+        if (!gallery || !photos) return;
+        
+        const addBtn = gallery.firstElementChild.outerHTML;
+        gallery.innerHTML = addBtn;
+        
+        photos.forEach(photo => {
+            const div = document.createElement('div');
+            div.className = 'w-28 h-36 bg-ios-bg3 rounded-xl flex-shrink-0 overflow-hidden relative border border-ios-sep shadow-sm';
+            div.innerHTML = `
+                <img src="${photo.src}" class="w-full h-full object-cover opacity-90">
+                <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-1.5 text-center backdrop-blur-sm">
+                    <span class="text-[0.65rem] font-bold">${photo.date}</span>
+                </div>
+            `;
+            gallery.appendChild(div);
         });
     }
 
