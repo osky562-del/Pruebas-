@@ -1,0 +1,59 @@
+<!-- 2.0 PWA History View -->
+<div class="page active" id="pageHist">
+    <div class="sec-header">Rendimiento Pasado</div>
+    
+    <div id="histList">
+        <!-- Card 1 -->
+        <div class="hist-item">
+            <div class="hist-head" onclick="this.nextElementSibling.classList.toggle('open')">
+                <div class="hist-info">
+                    <div class="hist-dot"></div>
+                    <div>
+                        <div class="hist-date">Hoy, 20 Marzo</div>
+                        <div class="hist-meta">⏱️ 65m • 🔥 RPE 8</div>
+                    </div>
+                </div>
+                <div class="hist-chevron">➡️</div>
+            </div>
+            <div class="hist-body">
+                <div class="hist-notes">Sentí mucha fuerza en el press inclinado.</div>
+                <div class="hist-ex">
+                    <span>Press de Banca</span>
+                    <div>4x10 <span class="hist-ex-kg">85kg</span></div>
+                </div>
+                <div class="hist-ex">
+                    <span>Aperturas</span>
+                    <div>3x15 <span class="hist-ex-kg">15kg</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="hist-item">
+            <div class="hist-head" onclick="this.nextElementSibling.classList.toggle('open')">
+                <div class="hist-info">
+                    <div class="hist-dot" style="background: var(--ios-blue);"></div>
+                    <div>
+                        <div class="hist-date">Ayer, 19 Marzo</div>
+                        <div class="hist-meta">⏱️ 45m • 🔥 RPE 7</div>
+                    </div>
+                </div>
+                <div class="hist-chevron">➡️</div>
+            </div>
+            <div class="hist-body">
+                <div class="hist-ex">
+                    <span>Sentadilla</span>
+                    <div>4x8 <span class="hist-ex-kg">100kg</span></div>
+                </div>
+                <div class="hist-ex">
+                    <span>Peso Muerto Rumano</span>
+                    <div>3x12 <span class="hist-ex-kg">80kg</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="padding: 40px 20px; text-align:center; color: var(--ios-label3);">
+        <p>Tu historial está sincronizado con la nube.</p>
+    </div>
+</div>

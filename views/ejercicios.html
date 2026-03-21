@@ -1,0 +1,84 @@
+<!-- Video & AR Tutorials Library -->
+<div class="page active">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-4 mt-2">
+        <div class="sec-header !m-0">Biblioteca de Movimientos</div>
+        <div class="text-xs font-bold text-ios-purple bg-ios-purple/10 px-2 py-1 rounded-full flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">view_in_ar</span> AR Ready
+        </div>
+    </div>
+
+    <!-- Smart Categories -->
+    <div class="flex gap-2 overflow-x-auto pb-4 noscroll mb-2">
+        <button class="pill active bg-ios-text text-ios-bg">🔥 Tendencias</button>
+        <button class="pill">Pecho</button>
+        <button class="pill">Espalda</button>
+        <button class="pill">Piernas</button>
+        <button class="pill">Técnica</button>
+    </div>
+
+    <!-- Featured AR Video -->
+    <div class="card !p-0 overflow-hidden mb-6 relative">
+        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=400&fit=crop" class="w-full h-48 object-cover opacity-80" alt="Deadlift Form">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4">
+            <div class="text-xs font-bold text-ios-purple mb-1">CLASE MAGISTRAL</div>
+            <div class="text-lg font-black text-white leading-tight mb-2">Perfecciona tu<br>Peso Muerto con RA</div>
+            <button onclick="showToast('Cargando Entorno 3D...')" class="bg-white/20 backdrop-blur-md text-white border border-white/30 rounded-xl py-2 px-4 text-xs font-bold w-max flex items-center gap-2">
+                <span class="material-symbols-outlined text-[1rem]">play_circle</span> Ver en 3D
+            </button>
+        </div>
+    </div>
+
+    <div class="sec-header">Todos los Movimientos</div>
+    <div class="flex flex-col gap-3">
+        <!-- Exercise Item -->
+        <a href="#entrenamiento" class="card !p-3 flex items-center gap-4 text-inherit no-underline">
+            <div class="w-14 h-14 rounded-xl bg-ios-bg3 overflow-hidden border border-ios-sep relative">
+                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=100&h=100&fit=crop" class="w-full h-full object-cover opacity-70" alt="Bench Press">
+                <div class="absolute inset-0 flex items-center justify-center bg-black/20 text-white">
+                    <span class="material-symbols-outlined text-[1.2rem]">play_arrow</span>
+                </div>
+            </div>
+            <div class="flex-1">
+                <div class="font-bold flex items-center gap-2">
+                    Press de Banca
+                    <span class="w-2 h-2 rounded-full bg-ios-blue"></span>
+                </div>
+                <div class="text-xs text-ios-label2 font-medium">Pectoral Mayor • Tutorial 4 min</div>
+            </div>
+            <span class="material-symbols-outlined text-ios-label3">chevron_right</span>
+        </a>
+
+        <!-- Exercise Item -->
+        <a href="#entrenamiento" class="card !p-3 flex items-center gap-4 text-inherit no-underline">
+            <div class="w-14 h-14 rounded-xl bg-ios-bg3 overflow-hidden border border-ios-sep relative">
+                <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=100&h=100&fit=crop" class="w-full h-full object-cover opacity-70" alt="Squat">
+                <div class="absolute inset-0 flex items-center justify-center bg-black/20 text-white">
+                    <span class="material-symbols-outlined text-[1.2rem]">play_arrow</span>
+                </div>
+            </div>
+            <div class="flex-1">
+                <div class="font-bold flex items-center gap-2">
+                    Sentadilla Libre
+                    <span class="w-2 h-2 rounded-full bg-ios-green"></span>
+                </div>
+                <div class="text-xs text-ios-label2 font-medium">Cuádriceps • Tutorial 6 min</div>
+            </div>
+            <span class="material-symbols-outlined text-ios-label3">chevron_right</span>
+        </a>
+
+        <!-- Premium Feature Unlocked -->
+        <a href="#entrenamiento" class="card !p-3 flex items-center gap-4 text-inherit no-underline border-ios-yellow bg-ios-yellow/5">
+            <div class="w-14 h-14 rounded-xl bg-ios-bg3 overflow-hidden border border-ios-sep flex items-center justify-center bg-ios-yellow-grad">
+                <span class="material-symbols-outlined text-black">lock_open</span>
+            </div>
+            <div class="flex-1">
+                <div class="font-bold flex items-center gap-2 text-ios-yellow-text">
+                    Dominadas Lastradas
+                </div>
+                <div class="text-xs text-ios-label2 font-medium">Espalda • KO95FIT-PRO Libre</div>
+            </div>
+            <div class="text-xs font-black text-ios-yellow uppercase px-2">LIBRE</div>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<!-- Progress View -->
+<div class="page active">
+    <div class="quick-pills mb-4">
+        <button class="pill active">⚖️ Corporal</button>
+        <button class="pill">Banca</button>
+        <button class="pill">Sentadilla</button>
+        <button class="pill">Dominadas</button>
+    </div>
+
+    <div class="card mb-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="sec-header !m-0">Tendencia</div>
+            <div class="text-xs text-ios-label2 font-bold px-3 py-1 bg-ios-bg3 rounded-full">3 MESES</div>
+        </div>
+        
+        <div style="height: 240px; position: relative;">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+
+    <div class="sec-header">Estadísticas Clave</div>
+    <div class="grid grid-cols-3 gap-3 mb-6">
+        <div class="card !p-3 text-center">
+            <div class="stat-lbl !text-[0.6rem]">Peso</div>
+            <div class="text-lg font-black green-text">76.5</div>
+            <div class="text-[0.6rem] text-ios-label3">kg</div>
+        </div>
+        <div class="card !p-3 text-center">
+            <div class="stat-lbl !text-[0.6rem]">PR Banca</div>
+            <div class="text-lg font-black blue-text">120</div>
+            <div class="text-[0.6rem] text-ios-label3">kg</div>
+        </div>
+        <div class="card !p-3 text-center">
+            <div class="stat-lbl !text-[0.6rem]">Volumen</div>
+            <div class="text-lg font-black orange-text">15.2</div>
+            <div class="text-[0.6rem] text-ios-label3">Ton</div>
+        </div>
+    </div>
+
+    <div class="sec-header">Período</div>
+    <div class="flex bg-ios-bg2 p-1 rounded-xl gap-1">
+        <button class="flex-1 py-2 text-xs font-bold rounded-lg hover:bg-ios-bg3">1M</button>
+        <button class="flex-1 py-2 text-xs font-bold rounded-lg hover:bg-ios-bg3">3M</button>
+        <button class="flex-1 py-2 text-xs font-bold rounded-lg hover:bg-ios-bg3">6M</button>
+        <button class="flex-1 py-2 text-xs font-bold rounded-lg bg-ios-bg4">TODO</button>
+    </div>
+</div>
+

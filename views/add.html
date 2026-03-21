@@ -1,0 +1,80 @@
+<!-- Add Workout View -->
+<div class="page active">
+    <div class="sec-header">Información de la Sesión</div>
+    
+    <div class="ios-form-group">
+        <div class="ios-input-field">
+            <label class="iif-label">📅 Fecha</label>
+            <input type="date" class="iif-input" id="workoutDate">
+        </div>
+        <div class="ios-input-field">
+            <label class="iif-label">⏱️ Tiempo (min)</label>
+            <input type="number" class="iif-input" placeholder="60" min="1">
+        </div>
+        <div class="ios-input-field">
+            <label class="iif-label">🔥 RPE (1-10)</label>
+            <input type="number" class="iif-input" placeholder="1-10" min="1" max="10">
+        </div>
+        <div class="ios-input-field">
+            <label class="iif-label">📝 Notas</label>
+            <input type="text" class="iif-input" placeholder="¿Cómo te sentiste?">
+        </div>
+    </div>
+
+    <div class="flex items-center justify-between mb-2">
+        <div class="sec-header !m-0">Añadir Ejercicio</div>
+        <button class="text-ios-green font-bold text-sm">📚 Plantillas</button>
+    </div>
+
+    <div class="ios-form-group">
+        <div class="ios-input-field">
+            <label class="iif-label">💪 Movimiento</label>
+            <input type="text" class="iif-input" placeholder="Press Banca Plano">
+        </div>
+        <div class="ios-input-field">
+            <label class="iif-label">⚖️ Peso (kg)</label>
+            <input type="number" class="iif-input" placeholder="80">
+        </div>
+        <div class="ios-input-field">
+            <label class="iif-label">🔁 Series</label>
+            <input type="number" class="iif-input" value="3">
+        </div>
+        <div class="ios-input-field">
+            <label class="iif-label">🔢 Reps</label>
+            <input type="number" class="iif-input" value="10">
+        </div>
+    </div>
+
+    <button id="btnAddEx" class="ios-btn ghost mb-6">
+        <span class="material-symbols-outlined">add_circle</span>
+        Añadir al entreno
+    </button>
+
+    <div id="exerciseList" class="flex flex-col gap-3 mb-8">
+        <!-- Ejercicios agregados -->
+        <div class="workout-card">
+            <div class="flex justify-between items-start mb-2">
+                <div class="font-bold">Sentadilla Libre</div>
+                <button class="text-ios-red"><span class="material-symbols-outlined">delete</span></button>
+            </div>
+            <div class="pill-row">
+                <span class="pill"><strong>3</strong> series</span>
+                <span class="pill"><strong>100kg</strong> peso</span>
+                <span class="pill"><strong>8</strong> reps</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex gap-4">
+        <button onclick="location.hash='#panel'" class="ios-btn ghost flex-1">Cancelar</button>
+        <button id="btnSave" class="ios-btn flex-[2]">
+            <span class="material-symbols-outlined">save</span>
+            Guardar sesión
+        </button>
+    </div>
+</div>
+
+<script>
+    document.getElementById('workoutDate').valueAsDate = new Date();
+</script>
+

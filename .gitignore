@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+.trae/
+fix_mobile.js
+fix_mobile_2.js
+split.js
+MCP.txt
+*.log

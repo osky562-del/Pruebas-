@@ -1,0 +1,79 @@
+<!-- Coach IA View -->
+<div class="page active h-full flex flex-col">
+    <!-- AI Intro Card -->
+    <div class="card mb-6 bg-ios-purple-grad text-white">
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-2xl">🤖</div>
+            <div>
+                <div class="font-black text-lg">Soy tu Coach IA</div>
+                <div class="text-xs text-white/80 font-medium">Pregúntame sobre rutinas, técnica o nutrición.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Suggested Actions -->
+    <div class="flex gap-2 mb-6 overflow-x-auto pb-2 noscroll">
+        <button class="pill whitespace-nowrap bg-ios-bg2 !border-ios-sep !text-xs font-bold" onclick="sendMsg('¿Cómo mejorar mi press banca?')">🚀 Mejorar Fuerza</button>
+        <button class="pill whitespace-nowrap bg-ios-bg2 !border-ios-sep !text-xs font-bold" onclick="sendMsg('Sugerencia de cena proteica')">🥩 Cena Proteica</button>
+        <button class="pill whitespace-nowrap bg-ios-bg2 !border-ios-sep !text-xs font-bold" onclick="sendMsg('¿Qué es el RPE?')">🤔 Qué es RPE</button>
+    </div>
+
+    <!-- Chat Messages -->
+    <div id="chatMessages" class="flex-1 overflow-y-auto mb-4 flex flex-col gap-4">
+        <div class="flex gap-3 items-end">
+            <div class="w-8 h-8 rounded-full bg-ios-purple-grad flex-shrink-0 flex items-center justify-center text-xs">🤖</div>
+            <div class="bg-ios-bg2 p-3 rounded-2xl rounded-bl-none text-sm border border-ios-sep max-w-[80%]">
+                ¡Hola Alex! He visto que tu último entreno de empuje fue intenso. ¿En qué puedo ayudarte hoy?
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Input -->
+    <div class="ios-form-group !mb-0 flex gap-2 p-2 items-center glass rounded-3xl">
+        <input type="text" id="chatInput" class="flex-1 bg-transparent border-none text-sm px-2 focus:ring-0" placeholder="Escribe tu duda...">
+        <button onclick="handleSend()" class="w-10 h-10 bg-ios-purple rounded-full flex items-center justify-center text-white shadow-lg active:scale-95 transition-transform">
+            <span class="material-symbols-outlined">send</span>
+        </button>
+    </div>
+</div>
+
+<script>
+    function sendMsg(text) {
+        document.getElementById('chatInput').value = text;
+        handleSend();
+    }
+
+    function handleSend() {
+        const inp = document.getElementById('chatInput');
+        const text = inp.value.trim();
+        if (!text) return;
+        
+        appendMsg(text, 'user');
+        inp.value = '';
+        
+        setTimeout(() => {
+            appendMsg('Interesante pregunta. Basado en tus datos de PR en press banca (95kg) y tu volumen semanal, te recomiendo enfocar la carga en...', 'ai');
+        }, 800);
+    }
+
+    function appendMsg(text, type) {
+        const chat = document.getElementById('chatMessages');
+        const d = document.createElement('div');
+        if (type === 'user') {
+            d.className = 'flex justify-end';
+            d.innerHTML = `<div class="bg-ios-green-grad text-black p-3 rounded-2xl rounded-br-none text-sm font-medium max-w-[80%] shadow-sm">${text}</div>`;
+        } else {
+            d.className = 'flex gap-3 items-end';
+            d.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-ios-purple-grad flex-shrink-0 flex items-center justify-center text-xs">🤖</div>
+                <div class="bg-ios-bg2 p-3 rounded-2xl rounded-bl-none text-sm border border-ios-sep max-w-[80%]">${text}</div>`;
+        }
+        chat.appendChild(d);
+        chat.scrollTo(0, chat.scrollHeight);
+    }
+
+    // Enter to send
+    document.getElementById('chatInput')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleSend();
+    });
+</script>

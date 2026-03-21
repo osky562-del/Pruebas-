@@ -1,0 +1,85 @@
+<!-- Profile View -->
+<div class="page active">
+    <!-- Profile Header -->
+    <div class="flex flex-col items-center mb-8 pt-4">
+        <div class="w-24 h-24 rounded-full bg-ios-green-grad flex items-center justify-center text-4xl shadow-lg mb-4 border-4 border-ios-bg2">
+            👤
+        </div>
+        <h2 class="text-2xl font-black italic tracking-tight">ALEX VOLKOV</h2>
+        <p class="text-ios-label2 text-sm font-medium">alex.volkov@performance.com</p>
+    </div>
+
+    <!-- Progress Photos & Measurements (Article Feature #12) -->
+    <div class="sec-header mt-2">Progreso Visual</div>
+    <div class="flex gap-3 overflow-x-auto pb-4 noscroll mb-4">
+        <button class="w-28 h-36 bg-ios-bg2 rounded-xl flex-shrink-0 flex items-center justify-center border-2 border-dashed border-ios-sep text-ios-label3 flex-col gap-2 hover:bg-ios-bg3 transition">
+            <span class="material-symbols-outlined text-3xl">add_a_photo</span>
+            <span class="text-[0.65rem] font-bold">Nueva Foto</span>
+        </button>
+        <div class="w-28 h-36 bg-ios-bg3 rounded-xl flex-shrink-0 overflow-hidden relative border border-ios-sep shadow-sm">
+            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=200&h=300&fit=crop" class="w-full h-full object-cover opacity-80" alt="Mar 2026">
+            <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-1.5 text-center backdrop-blur-sm">
+                <span class="text-[0.65rem] font-bold">15 Mar 2026</span>
+            </div>
+        </div>
+        <div class="w-28 h-36 bg-ios-bg3 rounded-xl flex-shrink-0 overflow-hidden relative border border-ios-sep shadow-sm">
+            <img src="https://images.unsplash.com/photo-1549476464-37392f717541?w=200&h=300&fit=crop" class="w-full h-full object-cover opacity-60 grayscale-[30%]" alt="Feb 2026">
+            <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-1.5 text-center backdrop-blur-sm">
+                <span class="text-[0.65rem] font-bold">1 Feb 2026</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="sec-header">Métricas Corporales</div>
+    <div class="card mb-6">
+        <div class="flex items-center gap-4">
+            <span class="text-2xl">⚖️</span>
+            <input type="number" class="flex-1 bg-transparent border-none text-xl font-bold focus:ring-0" placeholder="76.5 kg" step="0.1">
+            <button onclick="showToast('Peso actualizado')" class="bg-ios-green text-black px-4 py-2 rounded-xl font-bold text-sm">Guardar</button>
+        </div>
+    </div>
+
+    <div class="sec-header">Estadísticas de Cuenta</div>
+    <div class="flex flex-col gap-2 mb-6">
+        <div class="card !p-4 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-ios-green/10 flex items-center justify-center text-ios-green">
+                <span class="material-symbols-outlined">calendar_today</span>
+            </div>
+            <div class="flex-1">
+                <div class="text-xs text-ios-label2 font-bold uppercase tracking-wider">Sesiones este mes</div>
+                <div class="text-lg font-black">12</div>
+            </div>
+            <span class="material-symbols-outlined text-ios-label3">chevron_right</span>
+        </div>
+
+        <div class="card !p-4 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-xl bg-ios-orange/10 flex items-center justify-center text-ios-orange">
+                <span class="material-symbols-outlined">fitness_center</span>
+            </div>
+            <div class="flex-1">
+                <div class="text-xs text-ios-label2 font-bold uppercase tracking-wider">Volumen Total</div>
+                <div class="text-lg font-black">54,320 kg</div>
+            </div>
+            <span class="material-symbols-outlined text-ios-label3">chevron_right</span>
+        </div>
+    </div>
+
+    <div class="sec-header">Ajustes</div>
+    <div class="flex flex-col gap-2 mb-8">
+        <a href="#pro" class="card !p-4 flex items-center gap-4 text-inherit no-underline">
+            <div class="w-10 h-10 rounded-xl bg-ios-yellow/10 flex items-center justify-center text-ios-yellow">
+                <span class="material-symbols-outlined">military_tech</span>
+            </div>
+            <div class="flex-1">
+                <div class="font-bold">KO95FIT-PRO</div>
+                <div class="text-xs text-ios-label2">Totalmente Desbloqueado</div>
+            </div>
+            <span class="material-symbols-outlined text-ios-label3">chevron_right</span>
+        </a>
+    </div>
+
+    <button onclick="showToast('Sesión cerrada', 'err')" class="ios-btn red">
+        <span class="material-symbols-outlined">logout</span>
+        Cerrar Sesión
+    </button>
+</div>

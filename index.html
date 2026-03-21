@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>KO95FIT - PWA</title>
+    <meta name="description" content="Tu compañero de entrenamiento inteligente">
+    
+    <!-- PWA iOS Specific -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="KO95FIT">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/pwa.css">
+    
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="selection:bg-ios-green selection:text-black">
+    
+    <!-- Splash Screen -->
+    <div id="splash">
+        <div class="splash-icon">🏋️</div>
+        <div class="splash-name">KO95FIT</div>
+        <div class="ios-spinner"></div>
+    </div>
+
+    <!-- App Shell -->
+    <div id="app" class="view active">
+        <header class="nav-bar">
+            <div class="nav-title" id="navTitle">Panel de Control</div>
+            <button class="nav-icon-btn" id="btnNotifications">
+                <span class="material-symbols-outlined">notifications</span>
+            </button>
+        </header>
+
+        <main id="app-content" class="scroll-area h-full overflow-y-auto">
+            <!-- Modular views load here -->
+        </main>
+
+        <nav class="tab-bar">
+            <a href="#panel" class="tab-item active" id="t-panel">
+                <span class="material-symbols-outlined tab-icon">home</span>
+                <span class="tab-label">Inicio</span>
+            </a>
+            <a href="#add" class="tab-item" id="t-add">
+                <span class="material-symbols-outlined tab-icon">add_circle</span>
+                <span class="tab-label">Entreno</span>
+            </a>
+            <a href="#nutricion" class="tab-item" id="t-nutricion">
+                <span class="material-symbols-outlined tab-icon">restaurant</span>
+                <span class="tab-label">Nutrición</span>
+            </a>
+            <a href="#coach" class="tab-item" id="t-coach">
+                <span class="material-symbols-outlined tab-icon">smart_toy</span>
+                <span class="tab-label">Coach IA</span>
+            </a>
+            <a href="#perfil" class="tab-item" id="t-perfil">
+                <span class="material-symbols-outlined tab-icon">person</span>
+                <span class="tab-label">Perfil</span>
+            </a>
+        </nav>
+
+    </div>
+
+    <!-- Toasts Manager -->
+    <div id="toast-container" class="toast-wrap"></div>
+
+    <!-- Logic -->
+    <script src="js/app.js"></script>
+    <script>
+        // Splash Screen dismissal
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash');
+                splash.classList.add('hide');
+            }, 800);
+        });
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js');
+        }
+    </script>
+</body>
+</html>
