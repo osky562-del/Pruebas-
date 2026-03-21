@@ -45,9 +45,13 @@
 
     <!-- App Shell -->
     <div id="app" class="view active">
-        <header class="nav-bar">
-            <div class="nav-title" id="navTitle">Panel de Control</div>
-            <button class="nav-icon-btn" id="btnNotifications">
+        <header class="nav-bar items-start flex-col justify-center">
+            <div class="w-full flex justify-between items-center">
+                <div class="flex flex-col">
+                    <div class="nav-title !pb-0" id="navTitle">Panel de Control</div>
+                    <div id="navDate" class="text-[0.65rem] font-bold text-ios-label2 uppercase tracking-widest mt-0.5"></div>
+                </div>
+                <button class="nav-icon-btn !p-0" id="btnNotifications">
                 <span class="material-symbols-outlined">notifications</span>
             </button>
         </header>
@@ -98,6 +102,13 @@
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('./sw.js');
         }
+
+        // Set dynamic date
+        (function(){
+            const d = new Date();
+            const ds = d.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+            document.getElementById('navDate').textContent = ds;
+        })();
     </script>
 </body>
 </html>
