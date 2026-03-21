@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'historial': 'Mis Entrenos',
         'perfil': 'Mi Perfil',
         'pro': 'Premium Access',
-        'ejercicios': 'Biblioteca de Ejercicios'
+        'ejercicios': 'Biblioteca de Ejercicios',
+        'login': 'Bienvenido'
     };
 
     /**
@@ -58,6 +59,18 @@ document.addEventListener('DOMContentLoaded', () => {
             appContent.innerHTML = html + '<div style="height: 130px; width: 100%; display: block; clear: both;"></div>';
             navTitle.textContent = titles[viewName] || 'KO95FIT';
             window.scrollTo(0, 0);
+
+            // Handle navbar visibility
+            const navBar = document.querySelector('.nav-bar');
+            const tabBar = document.querySelector('.tab-bar');
+            
+            if (viewName === 'login') {
+                if (navBar) navBar.style.display = 'none';
+                if (tabBar) tabBar.style.display = 'none';
+            } else {
+                if (navBar) navBar.style.display = 'flex';
+                if (tabBar) tabBar.style.display = 'flex';
+            }
 
             // In transition
             appContent.style.opacity = '1';
@@ -262,11 +275,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.handleLogout = () => {
         localStorage.removeItem('koProfile');
-        showToast("Sesión cerrada. Borrando datos locales...", "err");
+        document.querySelector('.nav-bar').style.display = 'none';
+        document.querySelector('.tab-bar').style.display = 'none';
+        showToast("Sesión cerrada...", "err");
+        setTimeout(() => {
+            window.location.hash = '#login';
+        }, 1000);
+    };
+
+    window.handleLogin = () => {
+        // Create an empty profile to signal user is logged in
+        let profile = JSON.parse(localStorage.getItem('koProfile')) || {};
+        if (!profile.name) profile.name = 'Nuevo Atleta';
+        localStorage.setItem('koProfile', JSON.stringify(profile));
+        
+        showToast("¡Bienvenido a KO95FIT!");
         setTimeout(() => {
             window.location.hash = '#panel';
-            window.location.reload();
-        }, 1500);
+        }, 600);
     };
 
     // Router & Global Events
@@ -300,6 +326,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Initial View Load
-    loadView(window.location.hash.replace('#', '') || 'panel');
+    const hasProfile = !!localStorage.getItem('koProfile');
+    const initialView = window.location.hash.replace('#', '') || (hasProfile ? 'panel' : 'login');
+    
+    // Redirect unauthenticated users
+    if (!hasProfile && initialView !== 'login') {
+        window.location.hash = '#login';
+    } else {
+        loadView(initialView);
+    }
 });
 

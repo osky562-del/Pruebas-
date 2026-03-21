@@ -25,7 +25,7 @@
   --ios-glass: rgba(28, 28, 30, 0.8);
   --ios-glass-border: rgba(255, 255, 255, 0.08);
   
-  --tab-h: 84px;
+  --tab-h: 65px;
   --safe-top: env(safe-area-inset-top, 44px);
   --safe-bot: env(safe-area-inset-bottom, 34px);
   
@@ -184,16 +184,16 @@ html, body {
   color: var(--ios-label3);
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  padding-top: 10px;
+  padding-top: 2px;
 }
 
 .tab-icon {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   transition: all 0.2s;
 }
 
 .tab-label {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.3px;
