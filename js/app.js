@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 viewCache[viewName] = html;
             }
 
-            appContent.innerHTML = html;
+            appContent.innerHTML = html + '<div style="height: 130px; width: 100%; display: block; clear: both;"></div>';
             navTitle.textContent = titles[viewName] || 'KO95FIT';
             window.scrollTo(0, 0);
 
@@ -259,6 +259,15 @@ document.addEventListener('DOMContentLoaded', () => {
             gallery.appendChild(div);
         });
     }
+
+    window.handleLogout = () => {
+        localStorage.removeItem('koProfile');
+        showToast("Sesión cerrada. Borrando datos locales...", "err");
+        setTimeout(() => {
+            window.location.hash = '#panel';
+            window.location.reload();
+        }, 1500);
+    };
 
     // Router & Global Events
     window.addEventListener('hashchange', () => {
