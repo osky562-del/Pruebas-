@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'perfil': 'Mi Perfil',
         'pro': 'Premium Access',
         'ejercicios': 'Biblioteca de Ejercicios',
-        'login': 'Bienvenido'
+        'login': 'Bienvenido',
+        'rankings': 'Liga KO95FIT'
     };
 
     /**
@@ -293,7 +294,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.handleLogin = () => {
-        // Create an empty profile to signal user is logged in
         let profile = JSON.parse(localStorage.getItem('koProfile')) || {};
         if (!profile.name) profile.name = 'Nuevo Atleta';
         localStorage.setItem('koProfile', JSON.stringify(profile));
@@ -302,6 +302,98 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             window.location.hash = '#panel';
         }, 600);
+    };
+
+    /**
+     * Live Workout Handlers
+     */
+    let restInterval;
+    let restTime = 90; // seconds
+
+    window.startTimer = () => {
+        clearInterval(restInterval);
+        restTime = 90;
+        const display = document.getElementById('txtRestTimer');
+        const btnLabel = document.getElementById('btnTimerLabel');
+        if (!display) return;
+        
+        if (btnLabel) btnLabel.innerText = "Descansando...";
+        display.classList.add('text-ios-green');
+
+        restInterval = setInterval(() => {
+            restTime--;
+            if (restTime <= 0) {
+                clearInterval(restInterval);
+                display.innerText = "00:00";
+                display.classList.remove('text-ios-green');
+                display.classList.add('text-ios-red');
+                if (btnLabel) btnLabel.innerText = "Descanso Terminado";
+                showToast("¡Es hora de la siguiente serie!");
+                // Vibrate if supported
+                if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+            } else {
+                const m = Math.floor(restTime / 60).toString().padStart(2, '0');
+                const s = (restTime % 60).toString().padStart(2, '0');
+                display.innerText = `${m}:${s}`;
+            }
+        }, 1000);
+    };
+
+    window.resetTimer = () => {
+        clearInterval(restInterval);
+        const display = document.getElementById('txtRestTimer');
+        const btnLabel = document.getElementById('btnTimerLabel');
+        if (display) {
+            display.innerText = "01:30";
+            display.classList.remove('text-ios-green', 'text-ios-red');
+        }
+        if (btnLabel) btnLabel.innerText = "Iniciar Descanso";
+    };
+
+    window.finishSet = (btnElement) => {
+        // Find row
+        const row = btnElement.closest('.set-row');
+        // Lock inputs
+        const inputs = row.querySelectorAll('input');
+        inputs.forEach(inp => {
+            inp.disabled = true;
+            inp.classList.add('text-ios-green', 'opacity-70');
+        });
+        // Change button state
+        btnElement.classList.replace('text-outline-variant', 'bg-ios-green');
+        btnElement.classList.replace('hover:text-primary-dim', 'text-black');
+        btnElement.innerHTML = '<span class="material-symbols-outlined font-black">check_circle</span>';
+        
+        showToast("+1 Serie Completada", "ok");
+        
+        // Auto start timer
+        window.startTimer();
+    };
+
+    window.finishWorkout = () => {
+        clearInterval(restInterval);
+        
+        // Reward System / Gamification Modal
+        const modalHtml = `
+            <div id="rewardModal" class="fixed inset-0 z-[99999] flex items-center justify-center p-6 bg-black/80 backdrop-blur-md transition-opacity">
+                <div class="card w-full max-w-sm text-center flex flex-col items-center gap-4 bg-ios-bg2 overflow-hidden relative">
+                    <div class="absolute inset-0 bg-ios-yellow/10 blur-xl"></div>
+                    <div class="relative z-10 w-24 h-24 rounded-full bg-ios-yellow-grad text-black flex items-center justify-center shadow-[0_0_30px_rgba(255,214,10,0.4)]">
+                        <span class="material-symbols-outlined text-[3rem]">workspace_premium</span>
+                    </div>
+                    <h2 class="relative z-10 text-2xl font-black italic tracking-tighter text-ios-yellow">¡RÉCORD ESTABLECIDO!</h2>
+                    <p class="relative z-10 font-bold mb-2">Has superado las 12,000 pts de Volumen en Pecho.</p>
+                    <div class="relative z-10 flex gap-2 w-full justify-between items-center bg-black/40 p-3 rounded-xl mb-4">
+                        <span class="text-ios-label2 text-sm uppercase font-bold tracking-widest text-[0.6rem]">Recompensa</span>
+                        <span class="bg-ios-yellow text-black font-black px-3 py-1 rounded-full text-xs">+500 XP</span>
+                    </div>
+                    <button onclick="document.getElementById('rewardModal').remove(); location.hash='#rankings';" class="relative z-10 ios-btn w-full !bg-ios-yellow-grad shadow-lg shadow-ios-yellow/20">
+                        Ver Ranking Global
+                    </button>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
     };
 
     // Router & Global Events
