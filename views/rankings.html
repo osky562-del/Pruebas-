@@ -11,94 +11,92 @@
     </div>
 
     <!-- Podium -->
-    <div class="flex items-end justify-center gap-3 mb-8 h-40">
-        <!-- 2nd -->
-        <div class="flex flex-col items-center flex-1">
-            <div class="w-12 h-12 rounded-full border-2 border-[#C0C0C0] overflow-hidden mb-2 z-10 bg-ios-bg3">
-                <img src="https://images.unsplash.com/photo-1549476464-37392f717541?w=100&h=100&fit=crop" class="w-full h-full object-cover">
-            </div>
-            <div class="w-full bg-gradient-to-t from-ios-bg3 to-[#C0C0C0]/20 rounded-t-xl border-t border-[#C0C0C0]/40 flex flex-col items-center justify-start pt-2 h-24">
-                <span class="font-black text-lg">2</span>
-                <span class="text-[0.6rem] font-bold text-ios-label2">14k XP</span>
-            </div>
-        </div>
-        <!-- 1st -->
-        <div class="flex flex-col items-center flex-[1.2]">
-            <span class="text-xl mb-1 filter drop-shadow-[0_0_8px_rgba(255,214,10,0.8)] animate-bounce">👑</span>
-            <div class="w-16 h-16 rounded-full border-4 border-ios-yellow overflow-hidden mb-2 z-10 bg-ios-bg3 shadow-[0_0_15px_rgba(255,214,10,0.5)]">
-                <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=100&h=100&fit=crop" class="w-full h-full object-cover">
-            </div>
-            <div class="w-full bg-gradient-to-t from-ios-bg3 to-ios-yellow/20 rounded-t-xl border-t-2 border-ios-yellow/50 flex flex-col items-center justify-start pt-2 h-32">
-                <span class="font-black text-2xl text-ios-yellow">1</span>
-                <span class="text-xs font-black">15.2k XP</span>
-            </div>
-        </div>
-        <!-- 3rd -->
-        <div class="flex flex-col items-center flex-1">
-            <div class="w-12 h-12 rounded-full border-2 border-[#CD7F32] overflow-hidden mb-2 z-10 bg-ios-bg3">
-                <img src="https://images.unsplash.com/photo-1507314961139-89dc00407e77?w=100&h=100&fit=crop" class="w-full h-full object-cover grayscale">
-            </div>
-            <div class="w-full bg-gradient-to-t from-ios-bg3 to-[#CD7F32]/20 rounded-t-xl border-t border-[#CD7F32]/40 flex flex-col items-center justify-start pt-2 h-20">
-                <span class="font-black text-lg">3</span>
-                <span class="text-[0.6rem] font-bold text-ios-label2">12.5k XP</span>
-            </div>
-        </div>
-    </div>
+    <div id="podiumContainer" class="flex items-end justify-center gap-3 mb-8 h-40"></div>
 
     <!-- Leaderboard List -->
     <div class="sec-header">Tu Clasificación</div>
-    
-    <div class="flex flex-col gap-2 mb-8">
-        <!-- Other user -->
-        <div class="card !p-3 flex items-center gap-4">
-            <span class="font-black text-ios-label2 w-4 text-center">4</span>
-            <div class="w-10 h-10 rounded-full bg-ios-bg3 overflow-hidden border border-ios-sep">
-                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=100&h=100&fit=crop" class="w-full h-full object-cover">
-            </div>
-            <div class="flex-1">
-                <div class="font-bold text-sm">Carlos Fit</div>
-                <div class="text-[0.65rem] text-ios-label2">Racha: 12 días</div>
-            </div>
-            <div class="font-black text-ios-yellow text-sm">11.1k XP</div>
-        </div>
-
-        <!-- You -->
-        <div class="card !p-3 flex items-center gap-4 border-2 border-ios-green relative overflow-hidden bg-ios-green/5">
-            <div class="absolute left-0 top-0 bottom-0 w-1 bg-ios-green"></div>
-            <span class="font-black text-ios-green w-4 text-center">5</span>
-            <div class="w-10 h-10 rounded-full bg-ios-bg3 overflow-hidden border border-ios-green">
-                <img id="myAvatarRank" src="" class="w-full h-full object-cover">
-            </div>
-            <div class="flex-1">
-                <div class="font-black text-sm text-ios-green" id="myNameRank">Tú</div>
-                <div class="text-[0.65rem] text-ios-label2 font-bold">Racha: Activa 🔥</div>
-            </div>
-            <div class="font-black text-ios-green text-sm flex items-center gap-1">10.5k XP</div>
-        </div>
-
-        <!-- Other user -->
-        <div class="card !p-3 flex items-center gap-4">
-            <span class="font-black text-ios-label2 w-4 text-center">6</span>
-            <div class="w-10 h-10 rounded-full bg-ios-bg3 border border-ios-sep flex items-center justify-center">
-                <span class="material-symbols-outlined text-ios-label3 text-sm">person</span>
-            </div>
-            <div class="flex-1">
-                <div class="font-bold text-sm text-ios-label2">Usuario Oculto</div>
-                <div class="text-[0.65rem] text-ios-label2">Racha: 3 días</div>
-            </div>
-            <div class="font-bold text-ios-label2 text-sm">9.8k XP</div>
-        </div>
-    </div>
+    <div id="leaderboardList" class="flex flex-col gap-2 mb-8"></div>
 </div>
 
 <script>
-    // Inject dynamic user data into the ranking row
+    // Dinamyc Real Data Ranking Logic
     (function(){
         const prof = JSON.parse(localStorage.getItem('koProfile')) || {};
-        const nameEl = document.getElementById('myNameRank');
-        const avEl = document.getElementById('myAvatarRank');
-        if(nameEl && prof.name) nameEl.textContent = prof.name + " (Tú)";
-        if(avEl && prof.avatar) avEl.src = prof.avatar;
-        else if (avEl) avEl.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
+        const myName = prof.name || "Nuevo Atleta";
+        const myAvatar = prof.avatar || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
+        const myXP = prof.xp || 0; // The real XP generated by workouts!
+
+        // Generate opponents around the user's score to make it competitive
+        let players = [
+            { name: "Maximus V.", xp: 12500, avatar: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=100", isMe: false },
+            { name: "Sarah Fit", xp: 11200, avatar: "https://images.unsplash.com/photo-1549476464-37392f717541?w=100", isMe: false },
+            { name: "Ruben G.", xp: 10800, avatar: "https://images.unsplash.com/photo-1507314961139-89dc00407e77?w=100", isMe: false },
+            { name: "Tania M", xp: Math.max(8000, myXP - 500), avatar: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=100", isMe: false },
+            { name: "Carlos Pro", xp: Math.max(5000, myXP - 1200), avatar: "", isMe: false },
+            { name: myName, xp: myXP, avatar: myAvatar, isMe: true }
+        ];
+
+        // Sort descending
+        players.sort((a, b) => b.xp - a.xp);
+
+        // Assign ranks
+        players.forEach((p, index) => p.rank = index + 1);
+
+        const podiumList = document.getElementById('podiumContainer');
+        const listContainer = document.getElementById('leaderboardList');
+
+        // Render Podium (Indices 0, 1, 2)
+        // Position order: 2nd, 1st, 3rd for the visual flex layout
+        const top3 = [players[1], players[0], players[2]];
+        const heights = ["h-24", "h-32", "h-20"];
+        const colors = ["#C0C0C0", "var(--ios-yellow)", "#CD7F32"];
+
+        top3.forEach((p, idx) => {
+            if(!p) return;
+            const is1st = p.rank === 1;
+            const defAv = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
+            const borderCol = colors[idx];
+            
+            let html = `
+            <div class="flex flex-col items-center flex-${is1st ? '[1.2]' : '1'}">
+                ${is1st ? '<span class="text-xl mb-1 filter drop-shadow-[0_0_8px_rgba(255,214,10,0.8)] animate-bounce">👑</span>' : ''}
+                <div class="w-${is1st? '16 h-16 border-4' : '12 h-12 border-2'} rounded-full overflow-hidden mb-2 z-10 bg-ios-bg3" style="border-color:${borderCol}; ${is1st ? 'box-shadow: 0 0 15px rgba(255,214,10,0.5);' : ''}">
+                    <img src="${p.avatar || defAv}" class="w-full h-full object-cover">
+                </div>
+                <div class="w-full ${heights[idx]} rounded-t-xl border-t-2 flex flex-col items-center justify-start pt-2 relative overflow-hidden" style="border-color:${borderCol}80;">
+                    <!-- Gradient bg -->
+                    <div class="absolute inset-0 z-0 bg-gradient-to-t from-ios-bg3 to-[${borderCol}] opacity-20"></div>
+                    <span class="font-black text-${is1st ? '2xl text-ios-yellow' : 'lg'} relative z-10">${p.rank}</span>
+                    <span class="text-[0.6rem] font-bold text-ios-label2 relative z-10">${(p.xp/1000).toFixed(1)}k XP</span>
+                    <span class="text-[0.55rem] font-bold truncate px-1 uppercase text-center mt-1 w-full text-white relative z-10">${p.isMe ? 'Tú' : p.name.split(" ")[0]}</span>
+                </div>
+            </div>`;
+            podiumList.innerHTML += html;
+        });
+
+        // Render List (from 4th to end, plus user if they are in top 3 we still show them maybe?)
+        // Let's just render from 4th
+        players.slice(3).forEach((p) => {
+            const defAv = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
+            let meStyle = p.isMe ? "border-2 border-ios-green bg-ios-green/5" : "";
+            let mePill = p.isMe ? `<div class="absolute left-0 top-0 bottom-0 w-1 bg-ios-green"></div>` : "";
+            let nameCol = p.isMe ? "text-ios-green" : "";
+            
+            let html = `
+            <div class="card !p-3 flex items-center gap-4 relative overflow-hidden ${meStyle}">
+                ${mePill}
+                <span class="font-black ${p.isMe?'text-ios-green':'text-ios-label2'} w-4 text-center">${p.rank}</span>
+                <div class="w-10 h-10 rounded-full bg-ios-bg3 overflow-hidden border border-ios-sep">
+                    <img src="${p.avatar || defAv}" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="font-bold text-sm truncate ${nameCol}">${p.name} ${p.isMe ? '(Tú)' : ''}</div>
+                    <div class="text-[0.65rem] text-ios-label2 font-bold opacity-80">Volumen certificado</div>
+                </div>
+                <div class="font-black ${p.isMe ? 'text-ios-green' : 'text-ios-yellow'} text-sm">${(p.xp/1000).toFixed(1)}k XP</div>
+            </div>`;
+            listContainer.innerHTML += html;
+        });
+        
     })();
 </script>

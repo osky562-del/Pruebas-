@@ -309,6 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     let restInterval;
     let restTime = 90; // seconds
+    let currentSessionVolume = 0;
 
     window.startTimer = () => {
         clearInterval(restInterval);
@@ -351,29 +352,50 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.finishSet = (btnElement) => {
-        // Find row
+        if (btnElement.disabled) return;
+        
         const row = btnElement.closest('.set-row');
+        const weightInput = row.querySelector('.set-weight');
+        const repsInput = row.querySelector('.set-reps');
+        
+        const weight = parseFloat(weightInput.value) || 0;
+        const reps = parseInt(repsInput.value) || 0;
+        
+        // Real Volume Calculation
+        const setVolume = weight * reps;
+        currentSessionVolume += setVolume;
+
         // Lock inputs
-        const inputs = row.querySelectorAll('input');
-        inputs.forEach(inp => {
-            inp.disabled = true;
-            inp.classList.add('text-ios-green', 'opacity-70');
-        });
+        weightInput.disabled = true;
+        repsInput.disabled = true;
+        weightInput.classList.add('text-ios-green', 'opacity-70');
+        repsInput.classList.add('text-ios-green', 'opacity-70');
+
         // Change button state
         btnElement.classList.replace('text-outline-variant', 'bg-ios-green');
         btnElement.classList.replace('hover:text-primary-dim', 'text-black');
-        btnElement.innerHTML = '<span class="material-symbols-outlined font-black">check_circle</span>';
+        if (btnElement.classList.contains('border-primary-dim')) {
+            btnElement.classList.replace('border-primary-dim', 'bg-ios-green');
+            btnElement.classList.replace('text-primary-dim', 'text-black');
+        }
+        btnElement.innerHTML = '<span class="material-symbols-outlined font-black text-black">check_circle</span>';
+        btnElement.disabled = true;
         
-        showToast("+1 Serie Completada", "ok");
+        showToast(`+${setVolume} kg de Volumen al registro`, "ok");
         
-        // Auto start timer
         window.startTimer();
     };
 
     window.finishWorkout = () => {
         clearInterval(restInterval);
         
-        // Reward System / Gamification Modal
+        // Save real XP and Stats to Profile
+        let profile = JSON.parse(localStorage.getItem('koProfile')) || {};
+        profile.xp = (profile.xp || 0) + currentSessionVolume;
+        profile.workouts = (profile.workouts || 0) + 1;
+        localStorage.setItem('koProfile', JSON.stringify(profile));
+        
+        // Reward System / Gamification Modal using REAL DATA
         const modalHtml = `
             <div id="rewardModal" class="fixed inset-0 z-[99999] flex items-center justify-center p-6 bg-black/80 backdrop-blur-md transition-opacity">
                 <div class="card w-full max-w-sm text-center flex flex-col items-center gap-4 bg-ios-bg2 overflow-hidden relative">
@@ -381,11 +403,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="relative z-10 w-24 h-24 rounded-full bg-ios-yellow-grad text-black flex items-center justify-center shadow-[0_0_30px_rgba(255,214,10,0.4)]">
                         <span class="material-symbols-outlined text-[3rem]">workspace_premium</span>
                     </div>
-                    <h2 class="relative z-10 text-2xl font-black italic tracking-tighter text-ios-yellow">¡RÉCORD ESTABLECIDO!</h2>
-                    <p class="relative z-10 font-bold mb-2">Has superado las 12,000 pts de Volumen en Pecho.</p>
+                    <h2 class="relative z-10 text-2xl font-black italic tracking-tighter text-ios-yellow">¡ENTRENO FINALIZADO!</h2>
+                    <p class="relative z-10 font-bold mb-2">Has movido un total real de <span class="text-ios-green">${currentSessionVolume.toLocaleString()} kg</span>.</p>
                     <div class="relative z-10 flex gap-2 w-full justify-between items-center bg-black/40 p-3 rounded-xl mb-4">
                         <span class="text-ios-label2 text-sm uppercase font-bold tracking-widest text-[0.6rem]">Recompensa</span>
-                        <span class="bg-ios-yellow text-black font-black px-3 py-1 rounded-full text-xs">+500 XP</span>
+                        <span class="bg-ios-yellow text-black font-black px-3 py-1 rounded-full text-xs">+${currentSessionVolume.toLocaleString()} XP</span>
                     </div>
                     <button onclick="document.getElementById('rewardModal').remove(); location.hash='#rankings';" class="relative z-10 ios-btn w-full !bg-ios-yellow-grad shadow-lg shadow-ios-yellow/20">
                         Ver Ranking Global
@@ -394,6 +416,9 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
         document.body.insertAdjacentHTML('beforeend', modalHtml);
+        
+        // Reset dynamic session tracker
+        currentSessionVolume = 0;
     };
 
     // Router & Global Events

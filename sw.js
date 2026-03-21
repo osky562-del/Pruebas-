@@ -1,4 +1,4 @@
-const CACHE = 'ko95fit-v6';
+const CACHE = 'ko95fit-v7';
 const ASSETS = [
     './',
     './index.html',

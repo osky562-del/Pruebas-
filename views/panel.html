@@ -6,7 +6,7 @@
             <div class="w-10 h-10 bg-ios-orange-grad rounded-xl flex items-center justify-center text-xl shadow-lg">🔥</div>
             <div>
                 <div class="text-xs text-ios-label2 font-extrabold uppercase tracking-tight">Racha Actual</div>
-                <div class="text-2xl font-black italic">5 DÍAS</div>
+                <div id="rachaDisplay" class="text-2xl font-black italic">0 DÍAS</div>
             </div>
         </div>
         
@@ -42,23 +42,23 @@
     <div class="stat-grid mb-8">
         <div class="stat-card">
             <span class="stat-icon">📅</span>
-            <div class="stat-val green-text">12</div>
+            <div id="statWorkouts" class="stat-val green-text">0</div>
             <div class="stat-lbl text-[0.65rem]">Entrenos</div>
         </div>
         <div class="stat-card">
             <span class="stat-icon">🏋️</span>
-            <div class="stat-val blue-text">48</div>
-            <div class="stat-lbl text-[0.65rem]">Ejercicios</div>
+            <div id="statVolume" class="stat-val blue-text">0</div>
+            <div class="stat-lbl text-[0.65rem]">XP / Volumen</div>
         </div>
         <div class="stat-card">
-            <span class="stat-icon">📈</span>
-            <div class="stat-val yellow-text">8.2</div>
-            <div class="stat-lbl text-[0.65rem]">RPE Medio</div>
+            <span class="stat-icon">🔥</span>
+            <div id="statStreak" class="stat-val yellow-text">0</div>
+            <div class="stat-lbl text-[0.65rem]">Racha Días</div>
         </div>
         <div class="stat-card">
             <span class="stat-icon">🎯</span>
-            <div class="stat-val purple-text">92%</div>
-            <div class="stat-lbl text-[0.65rem]">Meta Semanal</div>
+            <div class="stat-val purple-text">100%</div>
+            <div class="stat-lbl text-[0.65rem]">Tu Meta</div>
         </div>
     </div>
 
@@ -68,7 +68,7 @@
             <div class="text-3xl filter drop-shadow-[0_0_8px_rgba(255,214,10,0.8)]">🏆</div>
             <div>
                 <div class="font-black text-ios-yellow text-sm">Liga Competitiva LAN</div>
-                <div class="text-[0.65rem] text-ios-label2 font-medium">Compite en tiempo real. Tu Ranking: 5º</div>
+                <div id="rankPreview" class="text-[0.65rem] text-ios-label2 font-medium">Pulsa aquí para ver tu posición Global</div>
             </div>
         </div>
         <span class="material-symbols-outlined text-ios-yellow">chevron_right</span>
@@ -161,3 +161,39 @@
         </div>
     </div>
 </div>
+
+<script>
+    (function(){
+        const prof = JSON.parse(localStorage.getItem('koProfile')) || {};
+        
+        const xp = prof.xp || 0;
+        const workouts = prof.workouts || 0;
+        
+        const elWorkouts = document.getElementById('statWorkouts');
+        const elVolume = document.getElementById('statVolume');
+        const elStreak = document.getElementById('statStreak');
+        const rachaTop = document.getElementById('rachaDisplay');
+
+        if(elWorkouts) elWorkouts.textContent = workouts;
+        
+        // Format XP to K if > 1000
+        if(elVolume) {
+            if (xp >= 10000) {
+                elVolume.textContent = (xp / 1000).toFixed(1) + 'k';
+            } else {
+                elVolume.textContent = xp.toLocaleString();
+            }
+        }
+        
+        // Simulated streak calculation based on workouts for a nice mockup
+        const streak = Math.max(0, workouts > 0 ? 1 : 0);
+        if(elStreak) elStreak.textContent = streak;
+        if(rachaTop) rachaTop.textContent = streak + " DÍAS";
+        
+        // Update Leaderboard Widget CTA
+        const rankCTA = document.getElementById('rankPreview');
+        if(rankCTA && xp > 0) {
+            rankCTA.textContent = `Puntos XP actuales: ${xp.toLocaleString()}`;
+        }
+    })();
+</script>
