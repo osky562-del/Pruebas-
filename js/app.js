@@ -41,10 +41,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!viewName) viewName = 'panel';
 
         try {
-            // Out transition
+            // Out transition (slides down and fades out)
             appContent.style.opacity = '0';
-            appContent.style.transform = 'translateY(10px)';
+            appContent.style.transform = 'translateY(20px)';
             appContent.style.transition = 'all 0.2s ease-in';
+            
+            await new Promise(r => setTimeout(r, 200));
+
+            // Instant reset to above the screen
+            appContent.style.transition = 'none';
+            appContent.style.transform = 'translateY(-40px)';
             
             await new Promise(r => setTimeout(r, 200));
 
@@ -72,10 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (tabBar) tabBar.style.display = 'flex';
             }
 
-            // In transition
+            // Make sure the DOM registers the non-transitioned height before animating in
+            await new Promise(r => setTimeout(r, 30));
+
+            // In transition (slides down from top to bottom)
+            appContent.style.transition = 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
             appContent.style.opacity = '1';
             appContent.style.transform = 'translateY(0)';
-            appContent.style.transition = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
             
             updateNavigationState(viewName);
 
