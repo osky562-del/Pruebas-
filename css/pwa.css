@@ -114,7 +114,7 @@ html, body {
 }
 
 /* ══ APP SHELL ══ */
-.view { display: none; height: 100vh; flex-direction: column; }
+.view { display: none; height: 100%; height: 100dvh; flex-direction: column; }
 .view.active { display: flex; }
 
 .nav-bar {
