@@ -321,12 +321,24 @@ html, body {
 .iif-label { font-size: 0.95rem; font-weight: 500; color: var(--ios-label2); width: 110px; }
 .iif-input { 
     flex: 1; 
-    background: none; 
-    border: none; 
-    color: var(--ios-label); 
-    font-size: 1rem; 
-    text-align: right;
-    font-weight: 500;
+    background: transparent !important; 
+    border: none !important; 
+    color: var(--ios-label) !important; 
+    font-size: 1rem !important; 
+    text-align: right !important;
+    font-weight: 500 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+.iif-input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: transparent !important;
+    color: var(--ios-green) !important;
+}
+input[type="date"].iif-input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.5;
 }
 
 .ios-btn {
